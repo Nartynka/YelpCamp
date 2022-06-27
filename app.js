@@ -9,7 +9,7 @@ const ExpressError = require('./utilities/expressError');
 const catchAsync = require('./utilities/catchAsync');
 const {campgroundSchema} = require('./schemas');
 
-mongoose.connect('mongodb://localhost:27017/yelpcamp', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'conection error'));
 db.once('open', () => {
@@ -100,6 +100,4 @@ app.use((err, req, res, next) => {
 	// next();
 });
 
-app.listen('3000', () => {
-	console.log('Server is running on port 3000');
-});
+module.exports = app
