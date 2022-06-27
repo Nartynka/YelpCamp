@@ -1,0 +1,33 @@
+<%- layout('layouts/boilerplate') %>
+<div class="row">
+   <div class="col-md-6 offset-md-3 mb-5">
+      <div class="card">
+         <img class="img-fluid card-img-top" src="<%= camp.image %>" alt="image of campground">
+         <div class="card-body">
+            <h2 class="card-title"><%= camp.title %></h2>
+            <p class="card-text"><%= camp.description %></p>
+         </div>
+         <ul class="list-group list-group-flush">
+            <li class="list-group-item text-muted"><%= camp.location %></li>
+            <li class="list-group-item">Price: <em><%= camp.price %>$</em>/night</li>
+         </ul>
+         <div class="card-body">
+            <a class="btn btn-primary" href="/campgrounds/<%= camp._id %>/edit">Edit</a>
+            <form action="/campgrounds/<%= camp._id %>?_method=DELETE" method="POST" class="d-inline">
+               <button class="btn btn-danger" type="submit">Delete</button>
+            </form>
+         </div>
+         <div class="card-footer text-muted">
+            <% if(camp.date.getDate() - new Date().getDate() === 0 && camp.date.getMonth() - new Date().getMonth()  === 0) {%> 
+            Today
+            <% } else if(camp.date.getMonth() - new Date().getMonth()  === 0) { %>
+               <%= camp.date.getDate() - new Date().getDate() === 1 ? '1 day ago' : Math.abs(camp.date.getDate() - new Date().getDate()) + ' days ago' %>
+            <% } else if(camp.date.getYear() - new Date().getYear()  === 0){%> 
+               <%= camp.date.getMonth() - new Date().getMonth() === 1 ? '1 month ago' : Math.abs(camp.date.getMonth() - new Date().getMonth()) + ' months ago' %>
+            <% } else { %> 
+               <%= camp.date.getYear() - new Date().getYear() === 1 ? '1 year ago' : Math.abs(camp.date.getYear() - new Date().getYear()) + ' years ago' %>
+            <% } %> 
+         </div>
+      </div>
+   </div> 
+</div>
